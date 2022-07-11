@@ -21,11 +21,23 @@ taskSchema.methods = {
   activeTask: function () {
     return mongoose.model("Task").find({ status: "Open" });
   },
-  closeTask: function(cb){
-    return mongoose.model("Task").find({status: "Close"},cb)
-  }
+  closeTask: function (cb) {
+    return mongoose.model("Task").find({ status: "Close" }, cb);
+  },
 };
 
 // Static
+taskSchema.statics = {
+  findWithJS: function () {
+    return this.find({ title: /js/i });
+  },
+};
+
+// Query
+taskSchema.query = {
+  findByTitle: function (title) {
+    return this.find({ title: new RegExp(title, "i") });
+  },
+};
 
 module.exports = new mongoose.model("Task", taskSchema);

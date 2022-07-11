@@ -51,6 +51,38 @@ router.get("/close-todo", (req, res) => {
   });
 });
 
+// Get Todos with 'JS' title
+router.get("/js", async (req, res) => {
+  try {
+    const data = await ToDo.findWithJS();
+    if (data) {
+      res.status(200).json({
+        data,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: "A Server Error Occured",
+    });
+  }
+});
+
+// Get ToDos with Title
+router.get("/by-title/:title", async (req, res) => {
+  try {
+    const data = await ToDo.find().findByTitle(req.params.title);
+    if (data) {
+      res.status(200).json({
+        data,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: "A Server Error Occured Here",
+    });
+  }
+});
+
 // Get a ToDo
 router.get("/:id", async (req, res) => {
   try {
