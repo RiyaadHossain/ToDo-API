@@ -1,5 +1,5 @@
 const express = require("express");
-const ToDo = require("../models/task");
+const ToDo = require("../models/taskModel");
 const router = express.Router();
 
 // Get All the ToDos

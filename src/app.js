@@ -1,19 +1,24 @@
 // Set Up Server
-const express = require('express');
-const app = express()
+const express = require("express");
+const app = express();
 
-const todoRouter = require("./routes/route") // Get Router
+const dotenv = require("dotenv");
+dotenv.config();
 
-require("./db/connect") // Connect to MongoDb
+const todoRouter = require("./routes/todoHandler"); // Get Router - Todo
+const userRouter = require("./routes/userHandler"); // Get Router - User
 
-app.get("/", (req, res) =>{
-    res.send("Hello World")
-})
+require("./db/connect"); // Connect to MongoDb
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
 // Middlewares
-app.use(express.json())
-app.use("/todo", todoRouter)
+app.use(express.json());
+app.use("/todo", todoRouter);
+app.use("/user", userRouter);
 
 app.listen(5000, () => {
-    console.log(`Server is running on PORT 6000`);
-})
+  console.log(`Server is running on PORT 6000`);
+});
