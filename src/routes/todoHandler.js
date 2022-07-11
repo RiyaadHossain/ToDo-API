@@ -1,9 +1,10 @@
 const express = require("express");
 const ToDo = require("../models/taskModel");
 const router = express.Router();
+const verifyUser = require("../../middlewares/verifyUser")
 
 // Get All the ToDos
-router.get("/", (req, res) => {
+router.get("/", verifyUser, (req, res) => {
   ToDo.find((err, data) => {
     if (err) {
       res.status(400).json({
