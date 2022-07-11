@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 // Get a ToDo
 router.get("/:id", async (req, res) => {
   try {
-    const data = await ToDo.findById(req.params.id);
+    const data = await ToDo.findById({ _id: req.params.id });
     res.status(200).json({
       data,
     });
@@ -60,13 +60,52 @@ router.post("/tasks", (req, res) => {
 // Put a ToDo
 router.put("/:id", async (req, res) => {
   try {
-    const data = await ToDo.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    const data = await ToDo.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: req.body },
+      {
+        new: true,
+      }
+    );
     res.status(200).json({
       data,
     });
   } catch (error) {
     res.status(400).json({
       error: "A Server Error Occured",
+    });
+  }
+});
+
+// Delete a ToDo
+router.delete("/:id", (req, res) => {
+  ToDo.findByIdAndDelete({ _id: req.params.id }).exec((err, data) => {
+    if (err) {
+      res.status(400).json({
+        error: "Sorry! the task wasn't deleted",
+      });
+    }
+    if (data) {
+      res.status(200).json({
+        Message: "The todo is Deleted successfully",
+      });
+    }
+  });
+});
+
+// Delete Multiple ToDos
+router.delete("/", async (req, res) => {
+  try {
+    const data = await ToDo.deleteMany({ title: /coding/i });
+
+    if (data) {
+      res.status(200).json({
+        message: "Todos are Deleted Successfully",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: "Sorry! We couldn't delete the ToDos",
     });
   }
 });
