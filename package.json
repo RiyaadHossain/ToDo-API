@@ -6,11 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["REST API", "ToDo", "Node", "Express", "MongoDB", "Mongoose"],
+  "keywords": [
+    "REST API",
+    "ToDo",
+    "Node",
+    "Express",
+    "MongoDB",
+    "Mongoose"
+  ],
   "author": "Riyad Hossain",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
-    "mongoose": "^6.4.4"
+    "mongoose": "^6.4.4",
+    "nodemon": "^2.0.19"
   }
 }

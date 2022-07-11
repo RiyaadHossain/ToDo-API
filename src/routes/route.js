@@ -17,6 +17,40 @@ router.get("/", (req, res) => {
   });
 });
 
+// Get the active ToDos - Instance Method
+router.get("/active-todo", async (req, res) => {
+  try {
+    const todo = new ToDo();
+    const data = await todo.activeTask();
+    if (data) {
+      res.status(200).json({
+        data,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: "A Server Error Occured",
+    });
+  }
+});
+
+// Get the close ToDos - Instance Method
+router.get("/close-todo", (req, res) => {
+  const todo = new ToDo();
+  todo.closeTask((err, data) => {
+    if (err) {
+      res.status(400).json({
+        error: "A Server Error Occured",
+      });
+    }
+    if (data) {
+      res.status(200).json({
+        data,
+      });
+    }
+  });
+});
+
 // Get a ToDo
 router.get("/:id", async (req, res) => {
   try {
