@@ -57,4 +57,18 @@ router.post("/tasks", (req, res) => {
   });
 });
 
+// Put a ToDo
+router.put("/:id", async (req, res) => {
+  try {
+    const data = await ToDo.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(400).json({
+      error: "A Server Error Occured",
+    });
+  }
+});
+
 module.exports = router;
