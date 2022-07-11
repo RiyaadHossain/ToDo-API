@@ -1,15 +1,16 @@
 {
   "name": "3.-todo---rest-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "REST API - ToDo Application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["REST API", "ToDo", "Node", "Express", "MongoDB", "Mongoose"],
+  "author": "Riyad Hossain",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "mongoose": "^6.4.4"
   }
 }
