@@ -16,7 +16,7 @@ const taskSchema = new mongoose.Schema({
   },
 });
 
-// Instances
+// Instance Method
 taskSchema.methods = {
   activeTask: function () {
     return mongoose.model("Task").find({ status: "Open" });
@@ -26,14 +26,14 @@ taskSchema.methods = {
   },
 };
 
-// Static
+// Static Method
 taskSchema.statics = {
   findWithJS: function () {
     return this.find({ title: /js/i });
   },
 };
 
-// Query
+// Query Helper
 taskSchema.query = {
   findByTitle: function (title) {
     return this.find({ title: new RegExp(title, "i") });

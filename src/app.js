@@ -1,7 +1,8 @@
 // Set Up Server
 const express = require('express');
 const app = express()
-const todoRouter = require("./routes/route")
+
+const todoRouter = require("./routes/route") // Get Router
 
 require("./db/connect") // Connect to MongoDb
 

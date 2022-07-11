@@ -34,7 +34,7 @@ router.get("/active-todo", async (req, res) => {
   }
 });
 
-// Get the close ToDos - Instance Method
+// Get the close ToDos - Instance Method with Callback
 router.get("/close-todo", (req, res) => {
   const todo = new ToDo();
   todo.closeTask((err, data) => {
@@ -51,7 +51,7 @@ router.get("/close-todo", (req, res) => {
   });
 });
 
-// Get Todos with 'JS' title
+// Get Todos with 'JS' title - Static Method
 router.get("/js", async (req, res) => {
   try {
     const data = await ToDo.findWithJS();
@@ -67,7 +67,7 @@ router.get("/js", async (req, res) => {
   }
 });
 
-// Get ToDos with Title
+// Get ToDos with Title - Query Method
 router.get("/by-title/:title", async (req, res) => {
   try {
     const data = await ToDo.find().findByTitle(req.params.title);
