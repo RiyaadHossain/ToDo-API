@@ -46,7 +46,6 @@ router.get("/all-user", async (req, res) => {
     const data = await User.find().populate("todos", "title _id");
     res.status(200).json({ data });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: "A server Error Occured." });
   }
 });

@@ -12,7 +12,6 @@ router.get("/", verifyUser, async (req, res) => {
       data,
     });
   } catch (error) {
-    console.log(error);
     res.status(400).json({
       error: "A Server Error Occured Here",
     });
@@ -104,13 +103,12 @@ router.post("/", verifyUser, async (req, res) => {
   try {
     const todo = new ToDo({
       ...req.body,
-      user: req.userId, // It always accpet a Object Id
+      user: req.userId, // Accpet the data type as you define in the Schema
     });
     await todo.save();
     await User.updateOne({ _id: req.userId }, { $push: { todos: todo._id } });
     res.status(200).json({ message: " Task assigned successfully" });
   } catch (error) {
-    console.log(error);
     res.status(400).json({
       error: "A Server Error Occured",
     });

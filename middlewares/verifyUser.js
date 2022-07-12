@@ -6,9 +6,7 @@ const verifyUser = async (req, res, next) =>{
         const token = req.headers.authorization.split(" ")[1]
         const decoded = await jwt.verify(token, process.env.JWT_SECRET)
         const user = await User.findOne({username: decoded})
-        // console.log(user);
         req.userId = user._id
-        req.email = user.email
         next()
     } catch (error) {
         next("Opps! Authentication Failed.")
