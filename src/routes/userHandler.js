@@ -36,6 +36,16 @@ router.post("/singin", async (req, res) => {
       res.status(401).json({ error: "Authentication Error!" });
     }
   } catch (error) {
+    res.status(500).json({ error: "A server Error Occured." });
+  }
+});
+
+// Get Users
+router.get("/all-user", async (req, res) => {
+  try {
+    const data = await User.find().populate("todos", "title _id");
+    res.status(200).json({ data });
+  } catch (error) {
     console.log(error);
     res.status(500).json({ error: "A server Error Occured." });
   }

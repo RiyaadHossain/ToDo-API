@@ -26,6 +26,12 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "admin"],
     default: "user",
   },
+  todos: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Task",
+    },
+  ],
 });
 
 module.exports = new mongoose.model("User", userSchema);

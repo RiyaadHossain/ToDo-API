@@ -2,6 +2,7 @@ const express = require("express");
 const ToDo = require("../models/taskModel");
 const router = express.Router();
 const verifyUser = require("../../middlewares/verifyUser");
+const User = require("../models/userModel");
 
 // Get All the ToDos
 router.get("/", verifyUser, async (req, res) => {
@@ -106,6 +107,7 @@ router.post("/", verifyUser, async (req, res) => {
       user: req.userId, // It always accpet a Object Id
     });
     await todo.save();
+    await User.updateOne({ _id: req.userId }, { $push: { todos: todo._id } });
     res.status(200).json({ message: " Task assigned successfully" });
   } catch (error) {
     console.log(error);
