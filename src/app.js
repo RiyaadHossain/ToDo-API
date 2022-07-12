@@ -20,5 +20,5 @@ app.use("/todo", todoRouter);
 app.use("/user", userRouter);
 
 app.listen(5000, () => {
-  console.log(`Server is running on PORT 6000`);
+  console.log(`Server is running on PORT 6000.`);
 });

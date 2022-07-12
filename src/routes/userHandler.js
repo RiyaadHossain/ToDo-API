@@ -30,15 +30,14 @@ router.post("/singin", async (req, res) => {
     const isVerified = await bcrypt.compare(req.body.password, user.password);
 
     if (isVerified) {
-      const token = await jwt.sign(user.username, process.env.JWT_SECRET, {
-        expiresIn: "1h",
-      });
+      const token = await jwt.sign(user.username, process.env.JWT_SECRET);
       res.status(200).json({ token, message: "User Signed in Successfully" });
     } else {
       res.status(401).json({ error: "Authentication Error!" });
     }
   } catch (error) {
-    res.status(500).json({ error: "A server Error Occured Here." });
+    console.log(error);
+    res.status(500).json({ error: "A server Error Occured." });
   }
 });
 

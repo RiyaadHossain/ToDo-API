@@ -14,6 +14,10 @@ const taskSchema = new mongoose.Schema({
     type: String,
     enum: ["Open", "Close"],
   },
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 // Instance Method

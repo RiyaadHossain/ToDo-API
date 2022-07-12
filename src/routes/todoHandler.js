@@ -1,21 +1,21 @@
 const express = require("express");
 const ToDo = require("../models/taskModel");
 const router = express.Router();
-const verifyUser = require("../../middlewares/verifyUser")
+const verifyUser = require("../../middlewares/verifyUser");
 
 // Get All the ToDos
-router.get("/", verifyUser, (req, res) => {
-  ToDo.find((err, data) => {
-    if (err) {
-      res.status(400).json({
-        error: "A Server Error Occured",
-      });
-    } else {
-      res.status(200).json({
-        data,
-      });
-    }
-  });
+router.get("/", verifyUser, async (req, res) => {
+  try {
+    const data = await ToDo.find().populate("user", "username");
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      error: "A Server Error Occured Here",
+    });
+  }
 });
 
 // Get the active ToDos - Instance Method
@@ -99,12 +99,16 @@ router.get("/:id", async (req, res) => {
 });
 
 // Post a Task
-router.post("/", async (req, res) => {
+router.post("/", verifyUser, async (req, res) => {
   try {
-    const todo = new ToDo(req.body);
+    const todo = new ToDo({
+      ...req.body,
+      user: req.userId, // It always accpet a Object Id
+    });
     await todo.save();
     res.status(200).json({ message: " Task assigned successfully" });
   } catch (error) {
+    console.log(error);
     res.status(400).json({
       error: "A Server Error Occured",
     });
